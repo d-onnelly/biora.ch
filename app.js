@@ -89,7 +89,7 @@
     // Footer / links (wire up later)
     els.aboutLink.addEventListener("click", (e) => {
       e.preventDefault();
-      toast("About: update this in app.js (about block).");
+      toast("Coming soon...");
     });
     els.contactLink.addEventListener("click", (e) => {
       e.preventDefault();
@@ -103,7 +103,7 @@
     els.copyEmail.addEventListener("click", (e) => {
       e.preventDefault();
       // Change to your email
-      copyToClipboard("ndonnelly66@hotmail.com");
+      copyToClipboard("");
     });
 
     render();
@@ -179,7 +179,7 @@
     card.innerHTML = `
       ${pinned}
       <h3 class="card__title">${escapeHtml(project.title)}</h3>
-      <p class="card__desc">${escapeHtml(project.summary || "")}</p>
+      <p class="card__desc">${escapeHtml(truncateWords(project.summary || "", 30))}</p>
       <div class="badges">
         ${(project.tech || []).slice(0, 6).map(t => `<span class="badge">${escapeHtml(t)}</span>`).join("")}
       </div>
@@ -226,9 +226,11 @@
     const actions = [];
     const repo = project.links?.repo || "";
     const live = project.links?.live || "";
+    const custom = project.links?.custom || "";
 
     if (live) actions.push(actionLink("Live demo", live));
     if (repo) actions.push(actionLink("Repository", repo));
+    if (custom) actions.push(actionLink("Custom", custom));
 
     actions.push(`<button class="btn" type="button" id="copyTitleBtn">Copy title</button>`);
     els.modalActions.innerHTML = actions.join("");
@@ -379,4 +381,12 @@
     if (/^javascript:/i.test(v)) return "";
     return escapeHtml(v);
   }
+
+  function truncateWords(text, maxWords = 30) {
+    const words = String(text).split(/\s+/);
+    if (words.length <= maxWords) return text;
+    return words.slice(0, maxWords).join(" ") + "…";
+  }
+
+
 })();
