@@ -296,12 +296,11 @@
     const preferred = [
       "All",
       "Websites",
-      "Invoice Application",
-      "3D Building",
+      "Software Applications",
+      "3D Modelling",
       "Lua Programming",
       "Miscellaneous",
-      "Arduino Uno R4 Stuff",
-      "ReSurface"
+      "Embedded Programming"
     ];
 
     const rest = Array.from(counts.keys())
